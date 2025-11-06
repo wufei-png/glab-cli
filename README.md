@@ -25,13 +25,23 @@ This skill should be placed in your Claude Code skills directory:
 ```bash
 # For project-specific installation
 mkdir -p .claude/skills
-cd .claude/skills
-git clone <this-repo> glab
+git clone https://github.com/henricook/claude-glab-skill .claude/skills/glab
 
 # For personal/global installation
 mkdir -p ~/.claude/skills
-cd ~/.claude/skills
-git clone <this-repo> glab
+git clone https://github.com/henricook/claude-glab-skill ~/.claude/skills/glab
+```
+
+After installation, your directory structure will be:
+```
+.claude/skills/glab/
+├── SKILL.md
+├── references/
+│   └── quick-reference.md
+├── README.md
+├── CONTRIBUTING.md
+├── CHANGELOG.md
+└── LICENSE
 ```
 
 ### Installing glab CLI
