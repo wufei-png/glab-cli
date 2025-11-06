@@ -8,13 +8,11 @@ This skill enables Claude Code to effectively assist with GitLab workflows using
 
 ## What This Skill Provides
 
-- **Authentication guidance**: Setting up and managing GitLab authentication
-- **Merge request workflows**: Creating, reviewing, approving, and merging MRs
-- **Issue management**: Creating, viewing, and managing GitLab issues
-- **CI/CD operations**: Monitoring pipelines, viewing logs, triggering runs
-- **Repository operations**: Cloning, forking, and managing GitLab repositories
-- **API access**: Direct GitLab API interactions via glab
-- **Best practices**: Common workflows and troubleshooting guidance
+- **Core workflows**: Common GitLab operations (MRs, issues, CI/CD, repos)
+- **Authentication guidance**: Quick setup for GitLab.com and self-hosted instances
+- **Best practices**: When and how to use glab effectively
+- **Progressive disclosure**: Concise core instructions with detailed references loaded as needed
+- **Comprehensive references**: Detailed command docs, troubleshooting, and quick reference guides
 
 ## Installation
 
@@ -35,9 +33,11 @@ git clone https://github.com/henricook/claude-glab-skill ~/.claude/skills/glab
 After installation, your directory structure will be:
 ```
 .claude/skills/glab/
-├── SKILL.md
-├── references/
-│   └── quick-reference.md
+├── SKILL.md                          # Core skill (~200 lines, loaded when skill invoked)
+├── references/                       # Detailed docs (loaded only as needed)
+│   ├── commands-detailed.md          # Comprehensive command reference
+│   ├── quick-reference.md            # Command cheat sheet
+│   └── troubleshooting.md            # Detailed error scenarios
 ├── README.md
 ├── CONTRIBUTING.md
 ├── CHANGELOG.md
@@ -97,48 +97,78 @@ Create an issue for the bug we just found
 Show me the status of the CI pipeline
 ```
 
-## What's Included
+## Skill Architecture
 
-### SKILL.md
-The main skill file containing:
-- Comprehensive command reference for all major glab commands
-- Authentication and setup instructions
-- Common workflows (creating MRs, reviewing code, monitoring CI/CD)
-- Best practices and troubleshooting guidance
-- Real-world usage examples
+This skill follows the **progressive disclosure design principle** for optimal performance:
 
-### Restricted Tools
+### Three-Level Context Loading
+
+1. **SKILL.md frontmatter** (~50 chars) - Loaded first for skill discovery and invocation
+2. **SKILL.md body** (~200 lines) - Core workflows and patterns loaded when skill is invoked
+3. **references/** folder - Detailed documentation loaded into context only as needed
+
+### SKILL.md (Core Instructions)
+The main skill file is concise and focused on:
+- When to use glab for different tasks
+- Essential authentication setup
+- Common workflow patterns (not exhaustive command lists)
+- Best practices and quick fixes
+- References to detailed documentation
+
+**Why it's concise:** Loads quickly when invoked, providing immediate guidance without overwhelming context.
+
+### references/ (Detailed Documentation)
+
+**commands-detailed.md** - Load when:
+- User needs specific flag or option details
+- Working with advanced commands (API, variables, schedules)
+- Need comprehensive command examples
+
+**troubleshooting.md** - Load when:
+- Encountering authentication or connection errors
+- Debugging CI/CD pipeline issues
+- Need detailed error scenarios and solutions
+
+**quick-reference.md** - Load when:
+- User wants a command cheat sheet
+- Quick lookup of common flags and patterns
+
+### Tool Restrictions
 The skill is configured with `allowed-tools: Bash, Read, Grep, Glob` to ensure Claude Code can:
 - Execute glab commands via Bash
-- Read configuration files and scripts
+- Read configuration and reference files as needed
 - Search for relevant files and patterns
 - Work within the repository context
 
 ## Skill Features
 
-### Command Coverage
+### Workflow-First Approach
 
-The skill provides guidance for:
+Rather than memorizing commands, the skill teaches:
+- **Creating merge requests** with reviewers and labels
+- **Reviewing code** by checking out MRs locally
+- **Managing issues** and linking them to MRs
+- **Monitoring CI/CD** pipelines and handling failures
 
-- **Authentication**: `glab auth login`, token management
-- **Merge Requests**: `glab mr create`, `glab mr list`, `glab mr approve`, `glab mr merge`
-- **Issues**: `glab issue create`, `glab issue list`, `glab issue view`
-- **CI/CD**: `glab ci view`, `glab ci run`, `glab ci lint`
-- **Repositories**: `glab repo clone`, `glab repo view`, `glab repo fork`
-- **API**: `glab api` for custom API interactions
-- **And many more**: labels, releases, snippets, users, variables, etc.
+### Comprehensive Command Coverage
 
-### Workflow Patterns
+30+ glab commands documented across:
+- Merge Requests, Issues, CI/CD Pipelines
+- Repositories, API access, Labels, Releases
+- Snippets, Users, Variables, SSH Keys
+- And more (see references/commands-detailed.md)
 
-The skill includes complete workflow patterns for:
-- Feature branch creation and merge request workflow
-- Code review process
-- CI/CD pipeline monitoring and troubleshooting
-- Issue tracking and linking
+### Context-Aware Assistance
+
+The skill helps Claude Code:
+- Detect when authentication is needed
+- Identify repository context issues
+- Suggest appropriate flags and options
+- Load detailed docs only when necessary
 
 ### Self-Hosted GitLab Support
 
-Full support for self-hosted GitLab instances with environment variable configuration and multi-instance authentication.
+Full support for GitLab.com and self-hosted instances with environment variable configuration and multi-instance authentication.
 
 ## Examples
 

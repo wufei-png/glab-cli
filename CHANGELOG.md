@@ -45,6 +45,41 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Configuration management instructions
 - Error messages and solutions
 
+## [1.1.0] - 2025-11-06
+
+### Changed - Progressive Disclosure Refactoring
+
+**Major restructuring following Claude Code Skills best practices:**
+
+- **SKILL.md reduced from 471 to 203 lines** - Now focused on core workflows and patterns
+- **Implemented three-level context loading:**
+  1. SKILL.md frontmatter for discovery
+  2. SKILL.md body for core workflows (loaded when invoked)
+  3. references/ folder for detailed docs (loaded only as needed)
+
+### Added
+- **references/commands-detailed.md** (610 lines) - Comprehensive command reference with all flags and options
+- **references/troubleshooting.md** (669 lines) - Detailed error scenarios, causes, and solutions
+
+### Improved
+- **SKILL.md** now workflow-first, teaching WHEN and HOW to use glab
+- **README** now explains progressive disclosure architecture
+- **references/quick-reference.md** remains as condensed cheat sheet (145 lines)
+
+### Why This Matters
+- **Faster skill invocation** - Smaller initial context load
+- **Better performance** - Claude loads detailed docs only when needed
+- **Clearer guidance** - Workflows over command memorization
+- **Scalable architecture** - Easy to add more detailed references
+
+### Migration Notes
+Users should re-pull or re-clone the skill to get the new structure:
+```bash
+cd ~/.claude/skills/glab && git pull
+# or
+rm -rf ~/.claude/skills/glab && git clone <repo> ~/.claude/skills/glab
+```
+
 ## [Unreleased]
 
 ### Planned
@@ -53,8 +88,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Enterprise GitLab feature documentation
 - Integration patterns with CI/CD tools
 - Scripts for common operations
-- Video or animated examples
-- Troubleshooting decision tree
 
 ## Notes
 
