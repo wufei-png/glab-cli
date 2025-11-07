@@ -134,6 +134,25 @@ Use JSON output for parsing:
 glab mr list --output=json | jq '.[] | .title'
 ```
 
+### Using the API Command
+
+The `glab api` command provides direct GitLab API access:
+
+```bash
+# Basic API call
+glab api projects/:id/merge_requests
+
+# IMPORTANT: Pagination uses query parameters in URL, NOT flags
+# ❌ WRONG: glab api --per-page=100 projects/:id/jobs
+# ✓ CORRECT: glab api "projects/:id/jobs?per_page=100"
+
+# Auto-fetch all pages
+glab api --paginate "projects/:id/pipelines/123/jobs?per_page=100"
+
+# POST with data
+glab api --method POST projects/:id/issues --field title="Bug" --field description="Details"
+```
+
 ## Best Practices
 
 1. **Verify authentication** before executing commands: `glab auth status`

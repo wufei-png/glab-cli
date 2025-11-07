@@ -349,11 +349,17 @@ glab api --method PUT projects/:id/merge_requests/1 --field title="New Title"
 # DELETE request
 glab api --method DELETE projects/:id/issues/123
 
-# Paginated API request
+# Paginated API request (auto-fetches all pages)
 glab api --paginate projects/:id/issues
 
-# Specify per-page limit
-glab api --paginate --per-page=100 projects/:id/issues
+# Pagination with query parameters (specify per_page in URL)
+glab api "projects/:id/issues?per_page=100"
+
+# Combine pagination flag with query parameters
+glab api --paginate "projects/:id/merge_requests?per_page=50&state=opened"
+
+# Manual pagination (specific page)
+glab api "projects/:id/issues?page=2&per_page=100"
 
 # Include response headers
 glab api --include projects/:id
