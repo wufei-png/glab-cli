@@ -29,6 +29,18 @@ https://docs.gitlab.com/editor_extensions/gitlab_cli/
 
 ## Install the Skill
 
+### One-Line Install (Recommended)
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/wufei-png/glab-cli/main/install.sh | bash
+```
+
+This will:
+- Download all skill files to `~/.agents/skills/glab-cli/`
+- Create symlinks at `~/.claude/skills/glab-cli` and `~/.cursor/skills/glab-cli`
+
+### Manual Install
+
 Recommended portable layout:
 
 ```bash
