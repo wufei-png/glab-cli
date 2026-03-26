@@ -1,7 +1,6 @@
 ---
-name: glab
+name: glab-cli
 description: Guidance for using the GitLab CLI (`glab`) from the terminal for merge requests, issues, CI/CD pipelines and jobs, repository targeting and inspection, clone and fork workflows, self-hosted GitLab instances, and direct GitLab REST or GraphQL API calls.
-allowed-tools: Bash, Read, Grep, Glob
 ---
 
 # GitLab CLI (glab) Skill
