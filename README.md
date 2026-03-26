@@ -11,7 +11,7 @@ Supported hot-path coverage is intentionally narrow: merge requests, issues, CI/
 - Lean `SKILL.md` with explicit preflight and mutation guardrails
 - Topic-specific references for auth, merge requests, issues, CI/CD, repo targeting, and API usage
 - Updated command examples that match current `glab` help output
-- A local verification script to catch stale examples before release
+- Local verification scripts to catch stale examples before release
 
 ## Install the Skill
 
@@ -41,6 +41,10 @@ https://docs.gitlab.com/editor_extensions/gitlab_cli/
 
 ```text
 .claude/skills/glab/
+├── .github/
+│   └── workflows/
+│       └── verify.yml
+├── .glab-version
 ├── SKILL.md
 ├── references/
 │   ├── api.md
@@ -50,6 +54,7 @@ https://docs.gitlab.com/editor_extensions/gitlab_cli/
 │   ├── merge-requests.md
 │   └── quick-reference.md
 ├── scripts/
+│   ├── check-version-headers.sh
 │   └── verify-commands.sh
 ├── README.md
 ├── CONTRIBUTING.md
@@ -78,15 +83,24 @@ Use glab api to list all jobs for this pipeline
 
 ## Maintenance
 
-This repository is validated against `glab 1.90.0`.
+This repository is validated against `glab 1.90.0`. The pinned CLI version lives in `.glab-version`.
 
 Before publishing changes, run:
 
 ```bash
+cat .glab-version
+glab --version
+bash scripts/check-version-headers.sh
 bash scripts/verify-commands.sh
 ```
 
-That script checks the main command anchors against local `glab --help` output and fails if known stale examples reappear in the docs.
+The installed `glab` version should match `.glab-version` before you treat the verification results as authoritative.
+
+`check-version-headers.sh` makes sure every documented `glab x.y.z` marker matches `.glab-version`.
+
+`verify-commands.sh` checks the main command anchors against local `glab --help` output and fails if known stale examples reappear in the docs.
+
+`.github/workflows/verify.yml` runs the pinned checks on pull requests and pushes to `main` when relevant files change, and also runs a weekly drift check against the latest `glab` release.
 
 ## Resources
 

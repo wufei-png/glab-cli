@@ -30,8 +30,11 @@ Repository support in the hot path is intentionally limited to repo targeting, `
 1. Confirm the local CLI version:
 
    ```bash
+   cat .glab-version
    glab --version
    ```
+
+   The installed `glab` version should match `.glab-version`.
 
 2. Check the commands you changed against help output:
 
@@ -39,13 +42,16 @@ Repository support in the hot path is intentionally limited to repo targeting, `
    glab <command> --help
    ```
 
-3. Run the verification script:
+3. Run the version and command verification scripts:
 
    ```bash
+   bash scripts/check-version-headers.sh
    bash scripts/verify-commands.sh
    ```
 
 4. Review the changed markdown for stale file references and broken examples.
+
+The GitHub Actions workflow in `.github/workflows/verify.yml` runs the same pinned checks on pull requests and pushes to `main`, plus a weekly drift check against the latest `glab` release.
 
 ## Writing Guidance
 

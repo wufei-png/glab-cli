@@ -1,0 +1,89 @@
+name: Verify
+
+on:
+  pull_request:
+    paths:
+      - ".glab-version"
+      - "SKILL.md"
+      - "README.md"
+      - "CONTRIBUTING.md"
+      - "references/**"
+      - "scripts/**"
+      - ".github/workflows/verify.yml"
+  push:
+    branches:
+      - main
+    paths:
+      - ".glab-version"
+      - "SKILL.md"
+      - "README.md"
+      - "CONTRIBUTING.md"
+      - "references/**"
+      - "scripts/**"
+      - ".github/workflows/verify.yml"
+  workflow_dispatch:
+  schedule:
+    - cron: "0 3 * * 1"
+
+permissions:
+  contents: read
+
+jobs:
+  verify-pinned:
+    name: Verify pinned glab
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Read pinned glab version
+        id: pinned
+        run: |
+          echo "version=$(tr -d '[:space:]' < .glab-version)" >> "$GITHUB_OUTPUT"
+
+      - name: Install pinned glab
+        run: |
+          version="${{ steps.pinned.outputs.version }}"
+          curl -fsSL -o glab.tgz "https://gitlab.com/gitlab-org/cli/-/releases/v${version}/downloads/glab_${version}_linux_amd64.tar.gz"
+          tar -xzf glab.tgz
+          sudo install bin/glab /usr/local/bin/glab
+          test "$(glab --version | awk 'NR==1 { print $2 }')" = "$version"
+
+      - name: Verify documented version markers
+        run: bash scripts/check-version-headers.sh
+
+      - name: Verify command anchors
+        run: bash scripts/verify-commands.sh
+
+  detect-drift:
+    name: Detect drift against latest glab
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+    continue-on-error: true
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Resolve latest glab version
+        id: latest
+        run: |
+          python3 - <<'PY' >> "$GITHUB_OUTPUT"
+          import json
+          import urllib.request
+
+          data = json.load(
+              urllib.request.urlopen(
+                  "https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/releases/permalink/latest"
+              )
+          )
+          print(f"version={data['tag_name'][1:]}")
+          PY
+
+      - name: Install latest glab
+        run: |
+          version="${{ steps.latest.outputs.version }}"
+          curl -fsSL -o glab.tgz "https://gitlab.com/gitlab-org/cli/-/releases/v${version}/downloads/glab_${version}_linux_amd64.tar.gz"
+          tar -xzf glab.tgz
+          sudo install bin/glab /usr/local/bin/glab
+          glab --version
+
+      - name: Verify command anchors against latest glab
+        run: bash scripts/verify-commands.sh
