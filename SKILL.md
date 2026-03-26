@@ -54,7 +54,7 @@ glab api --hostname gitlab.example.org projects/:id
   - `--output json` for `mr`, `ci`, and `repo` commands
   - `-O json` for `issue list`
   - `--output ndjson` for large `glab api --paginate` responses piped to `jq`
-- Before remote mutations, confirm the repository, target object, and branch. This matters for `mr merge`, `mr close`, `issue close`, `ci run`, `ci retry`, `ci cancel`, `ci delete`, `variable`, `schedule`, and `token` commands.
+- Before remote mutations, confirm the repository, target object, and branch. This matters for `mr create`, `mr merge`, `mr close`, `issue close`, `ci run`, `ci retry`, `ci cancel`, `ci delete`, and `repo fork` commands.
 - If `glab auth status` shows missing or invalid credentials, stop and ask the user to authenticate instead of retrying failing API calls.
 - Use `glab <command> --help` before guessing flags. CLI behavior changes across releases.
 - For `glab api`, pagination belongs in the endpoint query string. Example:
@@ -77,6 +77,8 @@ glab mr update 123 --ready
 glab mr note 123 -m "Please add tests"
 glab mr merge 123 --auto-merge
 ```
+
+`glab mr create --fill` sets `push` to true. Confirm `git status`, the current branch, and the target remote before using `--fill --yes`.
 
 ### Issues
 

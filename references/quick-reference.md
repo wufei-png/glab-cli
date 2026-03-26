@@ -82,6 +82,7 @@ glab api graphql -f query='query { currentUser { username } }'
 
 - `glab mr view 123` already renders in the terminal. Use `--web` only when the browser is the goal.
 - `glab mr create --related-issue 123` is the supported issue-linking form. Do not pass the issue IID positionally.
+- `glab mr create --fill` sets `push` to true. Confirm the current branch, remote, and pending changes before using `--fill --yes`.
 - `glab ci retry` retries jobs, not whole pipelines.
 - `glab ci cancel` uses subcommands: `pipeline <id>` or `job <id>`.
 - `glab issue close` does not accept a comment flag.

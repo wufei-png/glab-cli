@@ -34,6 +34,8 @@ glab mr create --remove-source-branch -t "Cleanup branch handling"
 
 Use `--related-issue 123`. Do not pass the issue IID positionally to `glab mr create`.
 
+`glab mr create --fill` sets `push` to true. Confirm the current branch, remote, and pending changes before using `--fill --yes`.
+
 ## Reviewing and Updating
 
 ```bash
