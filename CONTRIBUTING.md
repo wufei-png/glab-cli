@@ -5,6 +5,7 @@ Use this repository like a maintained skill, not a generic command dump. The mai
 ## Principles
 
 - Keep `SKILL.md` focused on discovery, preflight, guardrails, and a few high-value workflows.
+- Keep the claimed support surface aligned with the reference files. If a command family needs deep guidance, add a dedicated reference file or narrow the wording.
 - Put detailed examples in the smallest relevant file under `references/`.
 - Verify every new command against local `glab --help` output before documenting it.
 - Prefer current flags over remembered aliases or guessed options.
@@ -21,6 +22,8 @@ Use this repository like a maintained skill, not a generic command dump. The mai
 - `references/quick-reference.md`: compact cheat sheet
 
 If a new topic does not fit one of those files cleanly, add a new reference file instead of bloating `SKILL.md`.
+
+Repository support in the hot path is intentionally limited to repo targeting, `repo view`, `repo clone`, and `repo fork`. Broader administrative coverage should be explicit, not implied.
 
 ## Before You Commit
 

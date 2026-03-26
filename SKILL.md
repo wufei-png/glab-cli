@@ -1,6 +1,6 @@
 ---
 name: glab
-description: Guidance for using the GitLab CLI (`glab`) to manage GitLab merge requests, issues, CI/CD pipelines, repositories, self-hosted instances, and direct GitLab API calls from the terminal.
+description: Guidance for using the GitLab CLI (`glab`) from the terminal for merge requests, issues, CI/CD pipelines and jobs, repository targeting and inspection, clone and fork workflows, self-hosted GitLab instances, and direct GitLab REST or GraphQL API calls.
 allowed-tools: Bash, Read, Grep, Glob
 ---
 
@@ -8,13 +8,15 @@ allowed-tools: Bash, Read, Grep, Glob
 
 Use `glab` when the user wants to operate on GitLab from the terminal. These instructions are verified against `glab 1.90.0`.
 
+This hot path is intentionally narrow: merge requests, issues, CI/CD, repo targeting, repo view/clone/fork, and `glab api`. Broader project administration should only be documented through a dedicated reference file.
+
 ## When to Use
 
 Invoke this skill when the user needs to:
 - Create, review, update, merge, or inspect merge requests
 - Create, inspect, or update issues
 - Check, run, retry, cancel, or inspect CI/CD pipelines and jobs
-- Clone, fork, or inspect GitLab repositories
+- Target a repository explicitly, or view, clone, or fork it
 - Work with self-hosted GitLab instances
 - Make direct GitLab REST or GraphQL API calls with `glab api`
 

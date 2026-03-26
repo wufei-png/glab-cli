@@ -4,10 +4,12 @@ A Claude Code skill for working with GitLab from the terminal through `glab`.
 
 The skill is now organized around a short `SKILL.md` hot path plus topic-specific references. Command examples were re-validated against `glab 1.90.0` and current GitLab CLI documentation.
 
+Supported hot-path coverage is intentionally narrow: merge requests, issues, CI/CD, repo targeting and inspection, clone/fork flows, self-hosted host selection, and `glab api`.
+
 ## Highlights
 
 - Lean `SKILL.md` with explicit preflight and mutation guardrails
-- Topic-specific references for auth, merge requests, issues, CI/CD, and API usage
+- Topic-specific references for auth, merge requests, issues, CI/CD, repo targeting, and API usage
 - Updated command examples that match current `glab` help output
 - A local verification script to catch stale examples before release
 
@@ -58,7 +60,7 @@ https://docs.gitlab.com/editor_extensions/gitlab_cli/
 ## Reference Map
 
 - `SKILL.md`: entry point, preflight, execution policy, and the smallest set of workflows
-- `references/quick-reference.md`: short cheat sheet
+- `references/quick-reference.md`: short cheat sheet, including repo view/clone/fork commands
 - `references/auth.md`: authentication, repo context, self-hosted hosts, and auth failures
 - `references/merge-requests.md`: MR creation, review, merge, and MR-specific failures
 - `references/issues.md`: issue listing, creation, editing, and issue-specific failures
