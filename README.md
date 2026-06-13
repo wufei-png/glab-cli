@@ -1,5 +1,22 @@
 # GitLab CLI (`glab`) Skill
 
+## Current Recommendation
+
+For most users, prefer the official bundled `glab` skill shipped by current GitLab CLI releases:
+
+```bash
+glab skills install --global
+```
+
+The official skill tracks new `glab` workflows more closely, including current merge request note commands such as `glab mr note create`, and is the better default for day-to-day GitLab agent work.
+
+This repository remains useful when you want a smaller, conservative, client-neutral skill that:
+
+- Keeps `SKILL.md` intentionally short and moves details into topic references
+- Emphasizes safe agent behavior, including read-only preflight checks and mutation guardrails
+- Supports shared installs across Codex, Claude Code, Cursor, OpenCode, and other clients that scan `.agents/skills`
+- Pins examples to a known `glab` version and provides local verification scripts for command drift
+
 A client-neutral agent skill for working with GitLab from the terminal through `glab`.
 
 The repo name stays `claude-glab-skill`, but the installed skill directory and `SKILL.md` name are `glab-cli`. That keeps the runtime skill name stable across clients without renaming this repository.
@@ -29,7 +46,7 @@ https://docs.gitlab.com/editor_extensions/gitlab_cli/
 
 ## Install the Skill
 
-### One-Line Install (Recommended)
+### One-Line Install (Custom Skill)
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/wufei-png/glab-cli/main/install.sh | bash
