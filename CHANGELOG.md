@@ -36,4 +36,4 @@ All notable changes to this skill are documented here.
 
 ### Added
 
-- Initial release of the `glab` skill for Claude Code
+- Initial release of the `glab` skill for terminal-based agent use

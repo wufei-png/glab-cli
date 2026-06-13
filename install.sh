@@ -52,17 +52,7 @@ download_file "SKILL.md" || exit 1
 # Download entire references directory dynamically
 download_directory "references" || exit 1
 
-# Create symlinks for common clients
-CLAUDE_SKILLS_DIR="$HOME/.claude/skills"
-CURSOR_SKILLS_DIR="$HOME/.cursor/skills"
-
-mkdir -p "${CLAUDE_SKILLS_DIR}" "${CURSOR_SKILLS_DIR}"
-ln -sfn "${TARGET_DIR}" "${CLAUDE_SKILLS_DIR}/glab-cli"
-ln -sfn "${TARGET_DIR}" "${CURSOR_SKILLS_DIR}/glab-cli"
-
 echo ""
 echo "✓ Installation complete!"
 echo "  Location: ${TARGET_DIR}"
-echo "  Symlinks:"
-echo "    ${CLAUDE_SKILLS_DIR}/glab-cli -> ${TARGET_DIR}"
-echo "    ${CURSOR_SKILLS_DIR}/glab-cli -> ${TARGET_DIR}"
+echo "  Configure any client-specific skill roots to use this directory if needed."

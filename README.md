@@ -14,12 +14,12 @@ This repository remains useful when you want a smaller, conservative, client-neu
 
 - Keeps `SKILL.md` intentionally short and moves details into topic references
 - Emphasizes safe agent behavior, including read-only preflight checks and mutation guardrails
-- Supports shared installs across Codex, Claude Code, Cursor, OpenCode, and other clients that scan `.agents/skills`
+- Supports shared installs across clients that scan `.agents/skills`
 - Pins examples to a known `glab` version and provides local verification scripts for command drift
 
 A client-neutral agent skill for working with GitLab from the terminal through `glab`.
 
-The repo name stays `claude-glab-skill`, but the installed skill directory and `SKILL.md` name are `glab-cli`. That keeps the runtime skill name stable across clients without renaming this repository.
+This repository, the installed skill directory, and the `SKILL.md` name all use `glab-cli`. Keep that directory name when installing the skill so clients can discover the same runtime skill consistently.
 
 The skill is organized around a short `SKILL.md` hot path plus topic-specific references. Command examples were re-validated against `glab 1.90.0` and current GitLab CLI documentation.
 
@@ -54,7 +54,6 @@ curl -fsSL https://raw.githubusercontent.com/wufei-png/glab-cli/main/install.sh 
 
 This will:
 - Download all skill files to `~/.agents/skills/glab-cli/`
-- Create symlinks at `~/.claude/skills/glab-cli` and `~/.cursor/skills/glab-cli`
 
 ### Manual Install
 
@@ -62,27 +61,20 @@ Recommended portable layout:
 
 ```bash
 mkdir -p ~/.agents/skills
-cp -R /path/to/claude-glab-skill ~/.agents/skills/glab-cli
+cp -R /path/to/glab-cli ~/.agents/skills/glab-cli
 ```
 
-This layout is the primary install target for `Codex` and other clients that scan `~/.agents/skills/`.
+This layout is the primary install target for clients that scan `~/.agents/skills/`.
 
-For clients with their own user skill directories, point them at the same files with symlinks:
-
-```bash
-mkdir -p ~/.claude/skills ~/.cursor/skills
-ln -sfn ~/.agents/skills/glab-cli ~/.claude/skills/glab-cli
-ln -sfn ~/.agents/skills/glab-cli ~/.cursor/skills/glab-cli
-```
+For clients with their own user skill directories, point them at the same `glab-cli` directory with a copy or symlink.
 
 If you prefer project-local installs instead of user-level installs, keep the skill directory name as `glab-cli` in the client-specific project skill root.
 
 ## Client Notes
 
-- `Codex`: place the skill under `.agents/skills/glab-cli/` or `~/.agents/skills/glab-cli/`
-- `Claude Code`: place the skill under `.claude/skills/glab-cli/` or `~/.claude/skills/glab-cli/`
-- `Cursor`: place the skill under `.cursor/skills/glab-cli/` or `~/.cursor/skills/glab-cli/`
-- `OpenCode`: use the skill root that your OpenCode setup scans; a shared `~/.agents/skills/glab-cli/` source plus symlinks keeps one copy of the files
+- Standard user-level install: place the skill under `~/.agents/skills/glab-cli/`
+- Standard project-local install: place the skill under `.agents/skills/glab-cli/`
+- For clients with custom skill roots, keep the final directory name as `glab-cli`
 
 ## Repository Layout
 
